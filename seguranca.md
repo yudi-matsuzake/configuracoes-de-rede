@@ -30,7 +30,7 @@ switchport maximum 100
 switchport violation shutdown #desliga a interface se houver uma violação
 ```
 
-#DHCP
+#DHCP - snooping
 
 ```
 ip dhcp snooping
