@@ -11,3 +11,5 @@ Agradecimentos ao [Jordy](https://github.com/jordyantunes/) pelas anotações in
 * [VLANS](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/vlan.md)
 
 * [SEGURANÇA](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/seguranca.md)
+
+* [STP](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/stp.md)
