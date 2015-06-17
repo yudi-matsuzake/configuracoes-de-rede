@@ -15,3 +15,5 @@ Agradecimentos ao [Jordy](https://github.com/jordyantunes/) pelas anotações in
 * [STP](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/stp.md)
 
 * [IPV6](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/ipv6.md)
+
+* [WLAN](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/wlan.md)
