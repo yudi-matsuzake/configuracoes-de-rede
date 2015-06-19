@@ -17,3 +17,5 @@ Agradecimentos ao [Jordy](https://github.com/jordyantunes/) pelas anotações in
 * [IPV6](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/ipv6.md)
 
 * [WLAN](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/wlan.md)
+
+* [QoS](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/QoS.md)
