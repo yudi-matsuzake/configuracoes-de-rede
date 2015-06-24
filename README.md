@@ -6,6 +6,8 @@ Agradecimentos ao [Jordy](https://github.com/jordyantunes/) pelas anotações in
 
 ## Tópicos
 
+* [ROTEAMENTO](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/roteamento.md)
+
 * [UTIL](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/util.md)
 
 * [VLANS](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/vlan.md)
