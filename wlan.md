@@ -27,7 +27,7 @@ R2 (config)# username R3 password utfpr
 
 ## HDLC
 
-``ios
+```ios
 R3 (config)# interface serial 0/0/0
 R3 (config-if)# encapsulation hdlc
 ```
