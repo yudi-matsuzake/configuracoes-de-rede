@@ -21,3 +21,5 @@ Agradecimentos ao [Jordy](https://github.com/jordyantunes/) pelas anotações in
 * [WLAN](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/wlan.md)
 
 * [QoS](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/QoS.md)
+
+* [Etherchannels](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/etherchannel.md)

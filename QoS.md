@@ -4,7 +4,7 @@
 
 Vamos configurar uma rede com a seguinte topologia:
 
-![Topologia](imagens/voip-configuracao.png)
+![Topologia](imagens/voip/voip-configuracao.png)
 
 ### Configuração do Switch
 
