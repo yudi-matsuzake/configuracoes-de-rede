@@ -8,7 +8,7 @@
 
 * LACP IEEE 802.3ad standard
 
-![PAgP vs LACP](imagens/PAgPvsLAcP.png)
+![PAgP vs LACP](imagens/etherchannel/PAgPvsLAcP.png)
 
 ## Comandos
 
@@ -18,9 +18,9 @@
 
 - Show pagp
 
-![Etherchannel comandos](imagens/etherchannel1.png)
-![Etherchannel comandos](imagens/etherchannel2.png)
-![Etherchannel comandos](imagens/etherchannel3.png)
+![Etherchannel comandos](imagens/etherchannel/etherchannel1.png)
+![Etherchannel comandos](imagens/etherchannel/etherchannel2.png)
+![Etherchannel comandos](imagens/etherchannel/etherchannel3.png)
 
 ## Configuração
 
