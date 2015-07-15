@@ -50,4 +50,4 @@ Switch(config-if-range)# channel-group number mode {auto|disirable|on}
 
 **LACP**
 
-![LACP](imagens/etherchannel/LACP)
+![LACP](imagens/etherchannel/LACP.png)
