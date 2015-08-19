@@ -35,26 +35,6 @@ S(config-if)# switchport trunk allowed vlan <1-1005>
 	* Roteador -> Switch
 	- Seta o ip da interface pra cada vlan
 
-### Comandos	
-
-```
-router>enable
-router#config terminal
-router(config)#interface fa 0/0
-router(config-if)#no shutdown
-router(config)#interface fa 0/0.10
-router(config-if)#encapsulation dot1q 10
-router(config-if)#ip address 10.0.0.1 255.0.0.0
-router(config-if)#exit
-router(config)#interface fa 0/0.20
-router(config-if)#encapsulation dot1q 20
-router(config-if)#ip address 172.17.0.1 255.255.0.0
-router(config-if)#exit
-router(config)#interface fa 0/0.30
-router(config-if)#encapsulation dot1q 30
-router(config-if)#ip address 192.168.1.1 255.255.255.0
-```
-
 ##Com subintefaces
 
 * Uma interface para várias vlans
@@ -74,6 +54,24 @@ router(config-if)#ip address 192.168.1.1 255.255.255.0
 	- Gateway default de todas as vlans
 
 ### Comandos
+
+```
+router>enable
+router#config terminal
+router(config)#interface fa 0/0
+router(config-if)#no shutdown
+router(config)#interface fa 0/0.10
+router(config-if)#encapsulation dot1q 10
+router(config-if)#ip address 10.0.0.1 255.0.0.0
+router(config-if)#exit
+router(config)#interface fa 0/0.20
+router(config-if)#encapsulation dot1q 20
+router(config-if)#ip address 172.17.0.1 255.255.0.0
+router(config-if)#exit
+router(config)#interface fa 0/0.30
+router(config-if)#encapsulation dot1q 30
+router(config-if)#ip address 192.168.1.1 255.255.255.0
+```
 
 ```
 switch>enable
