@@ -6,6 +6,8 @@
 
 ## PPP com PAP
 
+PPP é um protocolo aberto
+
 ```ios
 R1 (config)#	username R2
 		password utfpr
