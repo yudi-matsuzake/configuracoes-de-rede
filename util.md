@@ -42,6 +42,26 @@ show mac-addres table
 #hostname zoera
 ```
 
+**DEBUG**
+
+```ios
+debug <o que você quer debugar>
+```
+
+*exemplos*
+
+```ios
+debug arp
+```
+
+```ios
+debug dhcp
+```
+
+```ios
+debug port-security
+```
+
 ## Gravações/exclusões de configuração
 
 `Ram` armazena running-config 
