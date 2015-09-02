@@ -23,3 +23,5 @@ Agradecimentos ao [Jordy](https://github.com/jordyantunes/) pelas anotações in
 * [QoS](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/QoS.md)
 
 * [ETHERCHANNEL](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/etherchannel.md)
+
+* [TFTP](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/tftp.md)
