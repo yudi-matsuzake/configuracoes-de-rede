@@ -52,14 +52,24 @@ debug <o que você quer debugar>
 
 ```ios
 debug arp
-```
-
-```ios
 debug dhcp
+debug port-security
+debug all
+```
+
+OBS.: `debug all` não é recomendado
+
+**Sair do debug**
+
+```ios
+undebug <o que você quer desbugar>
 ```
 
 ```ios
-debug port-security
+undebug arp
+undebug dhcp
+undebug ppp
+undebug all
 ```
 
 ## Gravações/exclusões de configuração
