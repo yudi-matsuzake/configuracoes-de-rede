@@ -27,3 +27,7 @@ Agradecimentos ao [Jordy](https://github.com/jordyantunes/) pelas anotações in
 * [TFTP](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/tftp.md)
 
 * [FRAME RELAY](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/frame_relay.md)
+
+* [DHCP](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/dhcp.md)
+
+* [NAT](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/nat.md)

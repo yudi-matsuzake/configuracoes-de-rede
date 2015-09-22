@@ -12,8 +12,8 @@ PPP é um protocolo aberto
 R1 (config)#	username R2
 		password utfpr
 R1 (config)# inter se 0/0/0
-R1 (config-if)# encapsulation PPP
-R1 (config-if)# ppp pap security R1 password utfpr
+R1 (config-if)# encapsulation ppp
+R1 (config-if)# ppp pap sent-username R1 password utfpr
 ```
 
 ## PPP com CHAP
