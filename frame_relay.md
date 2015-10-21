@@ -61,8 +61,9 @@ Filial1(config-if)#end
 Filial1#
 ```
 
+## Configuração do roteador da Filial 2
+
 ```ios
-Configuração do roteador da Filial 2
 Router>enable
 Router#config terminal
 Router(config)#hostname Filial2

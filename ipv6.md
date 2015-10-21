@@ -24,5 +24,5 @@ R(config-if)# ipv6 rip nrede enable
 Onde *nrede* é uma palavra chave
 
  ```ios
-#R (config) # ipv6 router rip nrede
+R (config) # ipv6 router rip nrede
  ```
