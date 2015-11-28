@@ -1,5 +1,16 @@
 # ACL
 
+## Processo resumido para aplicação da ACL
+
+1. Criar a restrição;
+
+2. Aplicar a restrição a interface;
+
+3. Informar a direção:
+	
+	* inbound 	(entrando);
+	* outbound	(saindo).
+
 ## Criando a Access-List
 ================================
 
