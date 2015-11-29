@@ -114,7 +114,7 @@ Rot1(config)#interface fa 0/0.10
 Rot1(config-if)#service-policy output QoS1
 ```
 
-## *** Configuração Shapping
+### Configuração Shapping
 
 * Ao invés de police rate ... Na linha
 
