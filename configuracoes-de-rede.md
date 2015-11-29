@@ -1,241 +1,111 @@
-\documentclass[]{article}
-\usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-    \usepackage{xltxtra,xunicode}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-  \newcommand{\euro}{€}
-\fi
-% use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\usepackage{graphicx}
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
-\hypersetup{breaklinks=true,
-            bookmarks=true,
-            pdfauthor={},
-            pdftitle={},
-            colorlinks=true,
-            citecolor=blue,
-            urlcolor=blue,
-            linkcolor=magenta,
-            pdfborder={0 0 0}}
-\urlstyle{same}  % don't use monospace font for urls
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\setcounter{secnumdepth}{0}
+# ACL
 
-\date{}
+## Processo resumido para aplicação da ACL
 
-\begin{document}
+1. Criar a restrição;
 
-{
-\hypersetup{linkcolor=black}
-\setcounter{tocdepth}{3}
-\tableofcontents
-}
-\section{ACL}\label{acl}
+2. Aplicar a restrição a interface;
 
-\subsection{Processo resumido para aplicação da
-ACL}\label{processo-resumido-para-aplicauxe7uxe3o-da-acl}
+3. Informar a direção:
+	
+	* inbound 	(entrando);
+	* outbound	(saindo).
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Criar a restrição;
-\item
-  Aplicar a restrição a interface;
-\item
-  Informar a direção:
+## Criando a Access-List
 
-  \begin{itemize}
-  \itemsep1pt\parskip0pt\parsep0pt
-  \item
-    inbound (entrando);
-  \item
-    outbound (saindo).
-  \end{itemize}
-\end{enumerate}
+### Padrão
 
-\subsection{Criando a Access-List}\label{criando-a-access-list}
+* Se você colocar `host` antes do ip, ele vai diretamente pra máquina;
 
-\subsubsection{Padrão}\label{padruxe3o}
+* Se não, deve colocar o ip da rede e uma wild mask;
 
-\begin{itemize}
-\item
-  Se você colocar \texttt{host} antes do ip, ele vai diretamente pra
-  máquina;
-\item
-  Se não, deve colocar o ip da rede e uma wild mask;
-\end{itemize}
-
-\begin{verbatim}
+```ios
 R (config)# access list 1 {permit|deny} host xxx.xxx.xxx.xxx
-\end{verbatim}
+```
 
-\subsubsection{Extendida}\label{extendida}
+### Extendida
 
-\begin{verbatim}
+```ios
 R (config)# access-list 100 {permit|deny} ip [ {host|protocolo} xxx.xxx.xxx.xxx ] \
-        [ xxx.xxx.xxx.xxx wildmask]
-\end{verbatim}
+		[ xxx.xxx.xxx.xxx wildmask]
+```
 
-\subsection{Adicionando a ACL em uma
-interface}\label{adicionando-a-acl-em-uma-interface}
+## Adicionando a ACL em uma interface
 
-\begin{verbatim}
+```ios
 R> interface serial 0/0/0
 R (config)# ip access-group 1 {in|out}
-\end{verbatim}
+```
+#DHCP
+# Etherchannels
 
-\section{DHCP}\label{dhcp}
+* O administrador deve indicar uma interface para o etherchanel usando o comando channel-group; 
 
-\section{Etherchannels}\label{etherchannels}
+## PAgP vs LACP
 
-\begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  O administrador deve indicar uma interface para o etherchanel usando o
-  comando channel-group;
-\end{itemize}
+* PAgP é da cisco
 
-\subsection{PAgP vs LACP}\label{pagp-vs-lacp}
+* LACP IEEE 802.3ad standard
 
-\begin{itemize}
-\item
-  PAgP é da cisco
-\item
-  LACP IEEE 802.3ad standard
-\end{itemize}
+![PAgP vs LACP](imagens/etherchannel/PAgPvsLAcP.png)
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{imagens/etherchannel/PAgPvsLAcP.png}
-\caption{PAgP vs LACP}
-\end{figure}
+## Comandos
 
-\subsection{Comandos}\label{comandos}
+- Channel group
 
-\begin{itemize}
-\item
-  Channel group
-\item
-  Show etherchannel
-\item
-  Show pagp
-\end{itemize}
+- Show etherchannel
 
-\includegraphics{imagens/etherchannel/etherchannel1.png}
-\includegraphics{imagens/etherchannel/etherchannel2.png}
-\includegraphics{imagens/etherchannel/etherchannel3.png}
+- Show pagp
 
-\subsection{Configuração}\label{configurauxe7uxe3o}
+![Etherchannel comandos](imagens/etherchannel/etherchannel1.png)
+![Etherchannel comandos](imagens/etherchannel/etherchannel2.png)
+![Etherchannel comandos](imagens/etherchannel/etherchannel3.png)
 
-\subsubsection{Ações}\label{auxe7uxf5es}
+## Configuração
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{imagens/etherchannel/acoes.png}
-\caption{Ações}
-\end{figure}
+### Ações
 
-\textbf{Comandos}
+![Ações](imagens/etherchannel/acoes.png)
 
-\begin{verbatim}
+**Comandos**
+
+```ios
 Switch(config)# interface range interface slot/port - port
 Switch(config-if-range)# channel-protocol {pagp | lacp}
 Switch(config-if-range)# channel-group number mode {auto|disirable|on}
-\end{verbatim}
+```
 
-\textbf{Modos}
+**Modos**
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{imagens/etherchannel/modos.png}
-\caption{Modos}
-\end{figure}
+![Modos](imagens/etherchannel/modos.png)
 
-\textbf{Estático}
+**Estático**
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{imagens/etherchannel/estatico.png}
-\caption{Estático}
-\end{figure}
+![Estático](imagens/etherchannel/estatico.png)
 
-\textbf{PAgP}
+**PAgP**
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{imagens/etherchannel/PAgP.png}
-\caption{PAgP}
-\end{figure}
+![PAgP](imagens/etherchannel/PAgP.png)
 
-\textbf{LACP}
+**LACP**
 
-\includegraphics{imagens/etherchannel/LACP.png} \# PVC frame relay
+![LACP](imagens/etherchannel/LACP.png)
+# PVC frame relay
 
-\subsection{Configuração básica de um PVC Frame Relay PVC em um roteador
-com interface
-serial.}\label{configurauxe7uxe3o-buxe1sica-de-um-pvc-frame-relay-pvc-em-um-roteador-com-interface-serial.}
+## Configuração básica de um PVC Frame Relay PVC em um roteador com interface serial.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{imagens/frame-relay/pvc-basico-frame-relay.png}
-\caption{Configuração Básica}
-\end{figure}
+![Configuração Básica](imagens/frame-relay/pvc-basico-frame-relay.png)
 
-\subsection{Configuração de um mapa estático Frame
-Relay}\label{configurauxe7uxe3o-de-um-mapa-estuxe1tico-frame-relay}
+## Configuração de um mapa estático Frame Relay
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{imagens/frame-relay/pvc-basico-frame-relay0.png}
-\caption{Configuração Básica}
-\end{figure}
+![Configuração Básica](imagens/frame-relay/pvc-basico-frame-relay0.png)
 
-\section{Configuração de uma topologia de rede Frame Relay Hub and
-Spoke}\label{configurauxe7uxe3o-de-uma-topologia-de-rede-frame-relay-hub-and-spoke}
+# Configuração de uma topologia de rede Frame Relay Hub and Spoke
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{imagens/frame-relay/frame-raley-hub-and-spoke.png}
-\caption{Configuração Hub and Spoke}
-\end{figure}
+![Configuração Hub and Spoke](imagens/frame-relay/frame-raley-hub-and-spoke.png)
 
-\subsection{Configuração do Roteador da
-Matriz}\label{configurauxe7uxe3o-do-roteador-da-matriz}
-
-\begin{verbatim}
+## Configuração do Roteador da Matriz
+```ios
 Router#config terminal
 Router(config)#hostname Matriz
 Matriz(config)#interface serial 0/0
@@ -258,12 +128,10 @@ Matriz(config-if)#ip address 200.10.1.1 255.255.255.0
 Matriz(config-if)#no shut
 Matriz(config-if)#exit
 Matriz(config)#
-\end{verbatim}
+```
 
-\subsection{Configuração do roteador da Filial
-1}\label{configurauxe7uxe3o-do-roteador-da-filial-1}
-
-\begin{verbatim}
+## Configuração do roteador da Filial 1
+```ios
 Router>enable
 Router#config terminal
 Router(config)#hostname Filial1
@@ -283,12 +151,11 @@ Filial1(config)#interface loopback 0
 Filial1(config-if)#ip address 200.134.10.1 255.255.255.0
 Filial1(config-if)#end
 Filial1#
-\end{verbatim}
+```
 
-\subsection{Configuração do roteador da Filial
-2}\label{configurauxe7uxe3o-do-roteador-da-filial-2}
+## Configuração do roteador da Filial 2
 
-\begin{verbatim}
+```ios
 Router>enable
 Router#config terminal
 Router(config)#hostname Filial2
@@ -310,12 +177,11 @@ Filial2(config-if)#ip address 200.100.1.1 255.255.255.0
 Filial2(config-if)#no shut
 Filial2(config-if)#end
 Filial2#
-\end{verbatim}
+```
 
-\subsection{Configuração do Switch Frame Relay
-1}\label{configurauxe7uxe3o-do-switch-frame-relay-1}
+## Configuração do Switch Frame Relay 1
 
-\begin{verbatim}
+```ios
 SFR1#config terminal
 SFR1(config)#hostname SFR1
 SFR1(config)#frame-relay switching
@@ -345,12 +211,11 @@ SFR1(config-if)#clock rate 64000
 SFR1(config-if)#no shut
 SFR1(config-if)#end
 SFR1#
-\end{verbatim}
+```
 
-\subsection{Configuração do Switch Frame Relay
-2}\label{configurauxe7uxe3o-do-switch-frame-relay-2}
+## Configuração do Switch Frame Relay 2
 
-\begin{verbatim}
+```ios
 SFR2#config terminal
 SFR2(config)#frame-relay switching
 SFR2(config)#interface serial 0/1
@@ -372,12 +237,11 @@ SFR2(config-if)#no shut
 SFR2(config-if)#
 SFR2(config-if)#end
 SFR2#wr
-\end{verbatim}
+```
 
-\subsection{Configuração do Switch Frame Relay
-3}\label{configurauxe7uxe3o-do-switch-frame-relay-3}
+## Configuração do Switch Frame Relay 3
 
-\begin{verbatim}
+```ios
 SFR3#configure terminal
 SFR3(config)#frame-relay switching
 SFR3(config)#interface serial 0/3
@@ -409,12 +273,11 @@ Matriz(config-fr-dlci)#exit
 Matriz(config-subif)#exit
 SFR3(config-if)#end
 SFR3#
-\end{verbatim}
+```
 
-\subsection{Configuração do protocolo de roteamento
-OSPF}\label{configurauxe7uxe3o-do-protocolo-de-roteamento-ospf}
+## Configuração do protocolo de roteamento OSPF
 
-\begin{verbatim}
+```ios
 Matriz
 Matriz#config terminal
 Matriz(config)#router ospf 1
@@ -422,11 +285,11 @@ Matriz(config-router)#network 200.10.1.0 0.0.0.255 area 0
 Matriz(config-router)#network 200.1.1.0 0.0.0.3 area 0
 Matriz(config-router)#network 200.1.1.4 0.0.0.3 area 0
 Matriz(config-router)#end
-\end{verbatim}
+```
 
-\subsection{Filial 1}\label{filial-1}
+## Filial 1
 
-\begin{verbatim}
+```ios
 Filial1>enable
 Filial1#config terminal
 Filial1(config)#route ospf 1
@@ -435,11 +298,11 @@ Filial1(config-router)#network 200.134.10.0 0.0.0.255 area 0
 Filial1(config-router)#network 200.1.1.0 0.0.0.3 area 0
 Filial1(config-router)#end
 Filial1#
-\end{verbatim}
+```
 
-\subsection{Filial 2}\label{filial-2}
+## Filial 2
 
-\begin{verbatim}
+```ios
 Filial2>enable
 Filial2#config terminal
 Filial2(config)#router ospf 1
@@ -448,12 +311,11 @@ Filial2(config-router)#network 200.100.1.0 0.0.0.255 area 0
 Filial2(config-router)#network 200.1.1.4 0.0.0.3 area 0
 Filial2(config-router)#end
 Filial2#
-\end{verbatim}
+```
 
-\subsection{Verificando as
-configurações:}\label{verificando-as-configurauxe7uxf5es}
+## Verificando as configurações:
 
-\begin{verbatim}
+```ios
 Matriz#show frame-relay map
 Serial0/0.102 (up): point-to-point dlci, dlci 102(0x66,0x1860), broadcast
           status defined, active
@@ -514,28 +376,38 @@ DLCI = 103, DLCI USAGE = LOCAL, PVC STATUS = ACTIVE, INTERFACE = Serial0/0.103
   5 minute output rate 0 bits/sec, 0 packets/sec
   pvc create time 00:53:14, last time pvc status changed 00:11:46
 Matriz#
-\end{verbatim}
+```
+# Roteador
 
-\section{Roteador}\label{roteador}
+ ```ios
+R> enable
+R(config)# config terminal
+R(config)# ipv6 unicast-routing 
+R(config)# interface fa 0/1
+R(config-if)# ipv6 enable
+R(config-if))# ipv6 address 2001:dbb1:1:1::1/64
+R(config-if)# no shut
+R(config-if)# exit
+ ```
 
-\texttt{ios\ R\textgreater{}\ enable\ R(config)\#\ config\ terminal\ R(config)\#\ ipv6\ unicast-routing\ \ R(config)\#\ interface\ fa\ 0/1\ R(config-if)\#\ ipv6\ enable\ R(config-if))\#\ ipv6\ address\ 2001:dbb1:1:1::1/64\ R(config-if)\#\ no\ shut\ R(config-if)\#\ exit}
+## ativar o rip
 
-\subsection{ativar o rip}\label{ativar-o-rip}
+### Na interface
 
-\subsubsection{Na interface}\label{na-interface}
-
-\begin{verbatim}
+```ios
 R(config-if)# ipv6 rip nrede enable
-\end{verbatim}
+```
 
-\subsubsection{Na configuração
-global}\label{na-configurauxe7uxe3o-global}
+### Na configuração global 
 
-Onde \emph{nrede} é uma palavra chave
+Onde *nrede* é uma palavra chave
 
-\texttt{ios\ R\ (config)\ \#\ ipv6\ router\ rip\ nrede} \# NAT
+ ```ios
+R (config) # ipv6 router rip nrede
+ ```
+# NAT
 
-\begin{verbatim}
+```ios
 Router(config)# int fa 0/1
 Router(config)# ip nat outside
 Router(config)# exit 
@@ -547,34 +419,26 @@ Router(config)# access-list 1 permit 200.1.1.0 0.0.0.3
 Router(config)# ip nat inside source list 1
 Router(config)# interface fa 0/1
 Router(config)# overload
-\end{verbatim}
+```
+# QoS
 
-\section{QoS}\label{qos}
-
-\subsection{Configuração de uma rede
-VoIP}\label{configurauxe7uxe3o-de-uma-rede-voip}
+## Configuração de uma rede VoIP
 
 Vamos configurar uma rede com a seguinte topologia:
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{imagens/voip/voip-configuracao.png}
-\caption{Topologia}
-\end{figure}
+![Topologia](imagens/voip/voip-configuracao.png)
 
-\subsubsection{Configuração do
-Switch}\label{configurauxe7uxe3o-do-switch}
+### Configuração do Switch
 
-\begin{verbatim}
+```ios
 Switch(config)#interface range fa0/1 – 5
 Switch(config-if-range)#switchport mode access
 Switch(config-if-range)#switchport voice vlan 1
-\end{verbatim}
+```
 
-\subsubsection{Configuração do roteador 2811 com o
-CME:}\label{configurauxe7uxe3o-do-roteador-2811-com-o-cme}
+### Configuração do roteador 2811 com o CME:
 
-\begin{verbatim}
+```ios
 Router(config)#int fa 0/0
 Router(config-if)#ip add 192.168.10.1 255.255.255.0
 Router(config-if)#no shutdown
@@ -598,12 +462,12 @@ Router(config-ephone-dn)#number 54002
 Router(config-ephone-dn)#
 Router(config)#ephone-dn 3
 Router(config-ephone-dn)#number 11111
-\end{verbatim}
+```
 
-\subsubsection{Configuração da Qualidade de Serviço (QoS) no Switch
-2960}\label{configurauxe7uxe3o-da-qualidade-de-serviuxe7o-qos-no-switch-2960}
+### Configuração da Qualidade de Serviço (QoS) no Switch 2960
 
-\begin{verbatim}
+
+```ios
 Switch#configure terminal
 Switch(config)#mls qos
 Switch(config)#interface range fastEthernet 0/1-5
@@ -618,21 +482,17 @@ Switch(config-if-range)#mls qos trust cos
 Switch(config-if-range)#exit
 Switch(config)#end
 Switch#wr
-\end{verbatim}
+```
 
-\section{Policing}\label{policing}
+# Policing 
 
-\subsection{Topologia}\label{topologia}
+## Topologia
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{imagens/qos/policing.png}
-\caption{Topologia}
-\end{figure}
+![Topologia](imagens/qos/policing.png)
 
-\subsection{Básico}\label{buxe1sico}
+## Básico
 
-\begin{verbatim}
+```ios
 Rot1(config)#interface fa 0/1
 Rot1(config-if)#ip address dhcp
 Rot1(config-if)#description Link para UTFPR
@@ -655,11 +515,11 @@ Rot1(config-if)#exit
 Rot1(config)#ip route 0.0.0.0 0.0.0.0 10.15.2.254
 Rot1(config)#access-list 1 permit 192.168.0.0 0.0.255.255
 Rot1(config)#ip nat inside source list 1 interface fa 0/1 overload
-\end{verbatim}
+```
 
-\subsection{Configuração Policing}\label{configurauxe7uxe3o-policing}
+## Configuração Policing
 
-\begin{verbatim}
+```ios
 Rot1(config)#ip access-list extended HostA
 Rot1(config-ext-nacl)#permit ip any host 192.168.100.2
 Rot1(config-ext-nacl)#permit ip host 192.168.100.2 any
@@ -674,33 +534,25 @@ Rot1(config-pmap-c-police)#end
 Rot1#config terminal
 Rot1(config)#interface fa 0/0.10
 Rot1(config-if)#service-policy output QoS1
-\end{verbatim}
+```
 
-\subsubsection{Configuração Shapping}\label{configurauxe7uxe3o-shapping}
+### Configuração Shapping
 
-\begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  Ao invés de police rate \ldots{} Na linha
-\end{itemize}
+* Ao invés de police rate ... Na linha
 
-\begin{verbatim}
+```ios
 Rot1(config-pmap-c)#police rate 64000 bps
-\end{verbatim}
+```
 
-\begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  Colocar:
-\end{itemize}
+* Colocar:
 
-\begin{verbatim}
+```ios
 Rot1(config-pmap-c)#shape average 128000
-\end{verbatim}
+```
 
-\subsection{Continuação\ldots{}}\label{continuauxe7uxe3o}
 
-\begin{verbatim}
+## Continuação...
+```ios
 Rot1(config)#ip access-list extended HostB
 Rot1(config-ext-nacl)#permit ip any host 192.168.200.2
 Rot1(config-ext-nacl)#permit ip host 192.168.200.2 any
@@ -715,72 +567,63 @@ Rot1(config-pmap-c-police)#end
 Rot1#config terminal
 Rot1(config)#interface fa 0/0.20
 Rot1(config-if)#service-policy output QoS2
-\end{verbatim}
+```
 
-\section{EIGRP 1}\label{eigrp-1}
-
-\begin{verbatim}
+# EIGRP 1
+```ios
 R(config)#router eigrp 1
 R(config-router)#network 192.168.1.0
 R(config-router)#network 200.1.1.0
 R(config-router)#end
 R#wr
-\end{verbatim}
+```
 
-\section{OSPF}\label{ospf}
+# OSPF
 
-\emph{Atenção: a máscara é invertida, i.e., wildmask}
+*Atenção: a máscara é invertida, i.e., wildmask*
 
 ex: /24 Ao invés de ser 255.255.255.0 é 0.0.0.255
 
-\begin{verbatim}
+```ios
 R(config)# router ospf 1
 R(config-router)# network 192.168.1.0 0.0.0.255 area 0
 R(config-router)# end
-\end{verbatim}
+```
+#Segurança de porta
 
-\section{Segurança de porta}\label{seguranuxe7a-de-porta}
+##Violações:
 
-\subsection{Violações:}\label{violauxe7uxf5es}
+	* Protect
 
-\begin{verbatim}
-* Protect
+	* Restrict
 
-* Restrict
+	* Shutdown
 
-* Shutdown
-\end{verbatim}
+##Observações:
+	
+	* Somente modo acesso
 
-\subsection{Observações:}\label{observauxe7uxf5es}
+	* Existe estático e dinâmico
 
-\begin{verbatim}
-* Somente modo acesso
+##Estático:
 
-* Existe estático e dinâmico
-\end{verbatim}
-
-\subsection{Estático:}\label{estuxe1tico}
-
-\begin{verbatim}
+```
 switchport port-security mac-address AA:AA:AA:AA:00:00:00:01
 switchport maximum 1
 switchport violation shutdown #desliga a interface se houver uma violação
-\end{verbatim}
+```
+##Dinâmico:
 
-\subsection{Dinâmico:}\label{dinuxe2mico}
+	Apenas não específicar o mac
 
-\begin{verbatim}
-Apenas não específicar o mac
-\end{verbatim}
-
-\begin{verbatim}
+```
 switchport maximum 100 
 switchport violation shutdown #desliga a interface se houver uma violação
-\end{verbatim}
+```
 
-\section{DHCP - snooping}\label{dhcp---snooping}
+#DHCP - snooping
 
-\begin{verbatim}
+```
 ip dhcp snooping
 ip dhcp snooping vlan 10
 inteface range f0/1-10
@@ -789,11 +632,11 @@ interface g0/1
 ip dhcp snooping trust
 end
 show ip dhcp snooping
-\end{verbatim}
+```
 
-\section{SSH}\label{ssh}
+# SSH
 
-\begin{verbatim}
+```
 S# vlan 30 
 S# ip domain-name X 
 S# username fabiano privilege 15 password CISCO
@@ -808,40 +651,37 @@ S#line vty 0 4
 #line vty 0 4 (5 conexões simultaneas) 
 #transport input ssh 
 #login local 
-\end{verbatim}
-
+```
 (para acesso remoto das vlans acesse vlan.md)
 
-\section{STP}\label{stp}
 
-\subsection{No switch que será o
-root}\label{no-switch-que-seruxe1-o-root}
 
-\begin{verbatim}
+# STP
+
+## No switch que será o root
+
+```ios
 Switch>enable
 Switch#config terminal
 Switch(config)#spanning-tree vlan 1 root primary
 Switch(config)#end
 Switch#
-\end{verbatim}
+```
 
-\subsection{Nos switches que serão
-secundários}\label{nos-switches-que-seruxe3o-secunduxe1rios}
+## Nos switches que serão secundários
 
-\begin{verbatim}
+```ios
 Switch>enable
 Switch#config terminal
 Switch(config)#spanning-tree vlan 1 root secondary
 Switch(config)#end
 Switch#
 Switch#
-\end{verbatim}
+```
 
-\subsection{Para configurar o switch na topologia desativando o
-protocolo Spanning Tree (STP). Tem somente a Vlan 1 (padrão)
-configurada.}\label{para-configurar-o-switch-na-topologia-desativando-o-protocolo-spanning-tree-stp.-tem-somente-a-vlan-1-padruxe3o-configurada.}
+## Para configurar o switch na topologia desativando o protocolo Spanning Tree (STP). Tem somente a Vlan 1 (padrão) configurada.
 
-\begin{verbatim}
+```ios
 Switch>enable
 Switch#config terminal
 Enter configuration commands, one per line. End with CNTL/Z.
@@ -852,52 +692,33 @@ wr
 Building configuration...
 [OK]
 Switch#
-\end{verbatim}
+```
+# TFPT
 
-\section{TFPT}\label{tfpt}
+* Arquivo de configuração do TFTP:
 
-\begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  Arquivo de configuração do TFTP:
-\end{itemize}
+`/etc/default/tftpd-hpa`
 
-\texttt{/etc/default/tftpd-hpa}
+* Pasta padrão do servidor tftp:
 
-\begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  Pasta padrão do servidor tftp:
-\end{itemize}
+`/home/tftp/`
 
-\texttt{/home/tftp/}
+* Iniciar, reinicializar ou desligar o deamon do TFTP:
 
-\begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  Iniciar, reinicializar ou desligar o deamon do TFTP:
-\end{itemize}
-
-\begin{verbatim}
+```shell
 /etc/init.d/tftpd-hpa {start|restart|stop|force-reload|status}
-\end{verbatim}
+```
 
-\begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  \emph{Exemplo}: copiar o arquivo running-config do sistema para o
-  servidor
-\end{itemize}
+* *Exemplo*: copiar o arquivo running-config do sistema para o servidor
 
-\begin{verbatim}
+```ios
 copy system:running-config tftp
-\end{verbatim}
+```
+# TUNELAMENTO
 
-\section{TUNELAMENTO}\label{tunelamento}
+## Túnel 6in4
 
-\subsection{Túnel 6in4}\label{tuxfanel-6in4}
-
-\begin{verbatim}
+```ios
 router> enable
 router# config t
 router(config)# interface tunnel 0
@@ -906,307 +727,242 @@ router(config-if)# tunnel source serial x/x/x
 router(config-if)# tunnel destination 203.0.113.6
 router(config-if)# tunnel mode ipv6ip
 router(config-if)# ipv6 route 2001:db8:cafe:2::/64 fd00:cafe::1
-\end{verbatim}
-
-\section{Útil}\label{uxfatil}
+```
+# Útil
 
 Comandos que podem ser úteis no gerenciamento e configuração das redes
 
-\textbf{Range de intefaces}
+**Range de intefaces**
 
-\begin{verbatim}
+```ios
 # interface range fa 0/0-10
-\end{verbatim}
+```
 
-\subsection{Dá pra separar por
-vírgulas}\label{duxe1-pra-separar-por-vuxedrgulas}
+## Dá pra separar por vírgulas
 
-\begin{verbatim}
+```ios
 # interface range fa 0/1, fa 0/3, fa0/5
-\end{verbatim}
+```
 
-\textbf{Mostra configuração geral}
+**Mostra configuração geral**
 
-\begin{verbatim}
+```ios
 # show running-config
-\end{verbatim}
+```
 
-\textbf{Mostra as vlans e suas intefaces designadas}
+**Mostra as vlans e suas intefaces designadas**
 
-\begin{verbatim}
+```
 # show vlan brief
-\end{verbatim}
+```
 
-\begin{verbatim}
+```
 # show vlan
-\end{verbatim}
+```
 
-\textbf{Mostra a tabela MAC \textbar{} INTERFACE do switch}
 
-\begin{verbatim}
+**Mostra a tabela MAC | INTERFACE do switch**
+```
 show mac-addres table
-\end{verbatim}
+```
 
-\textbf{Hostname}
+**Hostname**
 
-\begin{verbatim}
+```
 #hostname zoera
-\end{verbatim}
+```
 
-\textbf{DEBUG}
+**DEBUG**
 
-\begin{verbatim}
+```ios
 debug <o que você quer debugar>
-\end{verbatim}
+```
 
-\emph{exemplos}
+*exemplos*
 
-\begin{verbatim}
+```ios
 debug arp
 debug dhcp
 debug port-security
 debug all
-\end{verbatim}
+```
 
-OBS.: \texttt{debug\ all} não é recomendado
+OBS.: `debug all` não é recomendado
 
-\textbf{Sair do debug}
+**Sair do debug**
 
-\begin{verbatim}
+```ios
 undebug <o que você quer desbugar>
-\end{verbatim}
+```
 
-\begin{verbatim}
+```ios
 undebug arp
 undebug dhcp
 undebug ppp
 undebug all
-\end{verbatim}
+```
 
-\subsection{Gravações/exclusões de
-configuração}\label{gravauxe7uxf5esexclusuxf5es-de-configurauxe7uxe3o}
+## Gravações/exclusões de configuração
 
-\texttt{Ram} armazena running-config
+`Ram` armazena running-config 
 
-\texttt{nVran} armazena startup-config
+`nVran` armazena startup-config 
 
-\texttt{Flash} armazena SO e vlan.dat (conteúdo das vlans)
+`Flash` armazena SO e vlan.dat (conteúdo das vlans) 
 
-\subsubsection{Gravar Ram -\textgreater{} vRam}\label{gravar-ram---vram}
+### Gravar Ram -> vRam 
 
-\begin{verbatim}
+```
 #copy running-config startup-config 
-\end{verbatim}
+```
+OR 
 
-OR
-
-\begin{verbatim}
+```
 #wr 
-\end{verbatim}
+```
+ 
+### Apagar tudo: 
 
-\subsubsection{Apagar tudo:}\label{apagar-tudo}
-
-\begin{verbatim}
+```
 #erase startup-config 
 #delete flash:vlan.dat 
 #reload 
-\end{verbatim}
+```
 
-\section{Recuperação de
-dispositivos}\label{recuperauxe7uxe3o-de-dispositivos}
+# Recuperação de dispositivos
 
-\subsection{Recuperar senhas}\label{recuperar-senhas}
+## Recuperar senhas
 
-\subsubsection{No roteador}\label{no-roteador}
+### No roteador
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Fazer a conexão com o equipamento utilizando o cabo serial e o kermit;
-\item
-  Reinicializar fisicamente o roteador;
-\item
-  Acessar o modo Rommon no roteador: Após 5 segundos, pressionar
-  simultaneamente as teclas Ctrl-\l ou Ctrl-\b. Este procedimento
-  interrompe a sequência normal do boot e inicia o Rom Monitor.
-\end{enumerate}
+1. Fazer a conexão com o equipamento utilizando o cabo serial e o kermit;
 
-\begin{verbatim}
+2. Reinicializar fisicamente o roteador;
+
+3. Acessar o modo Rommon no roteador: Após 5 segundos, pressionar simultaneamente as teclas  Ctrl-\l ou Ctrl-\b. Este procedimento interrompe a sequência normal do boot e inicia o Rom Monitor.
+
+```ios
 rommon >
-\end{verbatim}
+```
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  Alterar o registro de configuração para o valor 0x2142. Com isto, na
-  reinicialização do roteador o equipamento não vai carregar a
-  configuração da NVRAM. Com isto as configurações salvas não serão
-  carregadas e não haverá senha para entrar no roteador.
-\end{enumerate}
+4. Alterar o registro de configuração para o valor 0x2142. Com isto, na reinicialização do roteador o equipamento não vai carregar a configuração da NVRAM. Com isto as configurações salvas não serão carregadas e não haverá senha para entrar no roteador.
 
-\begin{verbatim}
+```ios
 rommon> confreg 0x2142
 rommon> reset
-\end{verbatim}
+```
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{4}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  Apenas digitar \emph{enable}, não precisa digitar a senha
-\end{enumerate}
+5. Apenas digitar *enable*, não precisa digitar a senha
 
-\begin{verbatim}
+```ios
 router> enable
 router# copy startup-config running-config
-\end{verbatim}
+```
 
-\begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  A partir deste ponto toda a configuração da NVRAM estará na RAM e
-  poderá ser alterada, inclusive a senha.
-\end{itemize}
+* A partir deste ponto toda a configuração da NVRAM estará na RAM e poderá ser alterada, inclusive a senha.
 
-\subsubsection{No switch}\label{no-switch}
+### No switch
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Desligar o switch da tomada e segurar o botão switch old.
-\item
-  Nesse modo, existem 3 comandos:
-\end{enumerate}
+1. Desligar o switch da tomada e segurar o botão switch old.
 
-\begin{verbatim}
+2. Nesse modo, existem 3 comandos:
+
+```ios
 flash_init
 
 load_helper
 
 boot
-\end{verbatim}
+```
 
-\begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  Fazer os comandos nessa ordem, flash\_init, load\_helper, então
-  renomear o arquivo config.text e, então, executar o comando boot:
-\end{itemize}
+* Fazer os comandos nessa ordem, flash\_init, load\_helper, então renomear o arquivo config.text e, então, executar o comando boot:
 
-\begin{verbatim}
+```ios
 flash_init
 load_helper
 rename flash:config.text flash:config.old
 boot
-\end{verbatim}
+```
 
-\begin{itemize}
-\item
-  Então você será logado ao sistema normal, como se tivesse comprado
-  agora o dispositivo.
-\item
-  Renomear, por fim, o arquivo config.old para config.text, depois
-  copiar config.text pra running-config:
-\end{itemize}
+* Então você será logado ao sistema normal, como se tivesse comprado agora o dispositivo.
 
-\begin{verbatim}
+* Renomear, por fim, o arquivo config.old para config.text, depois copiar config.text pra running-config:
+
+```ios
 copy flash:config.old flash:config.text
 copy flash:config.text system:running-config
-\end{verbatim}
+```
 
-\subsection{IOS apagado}\label{ios-apagado}
+## IOS apagado
 
-\begin{itemize}
-\item
-  Setar as configurações de rede do roteador, iniciar servidor tftp,
-  setar o nome do .bin em um servidor tftp, setar ip de servidor tftp e
-  baixar o arquivo pela rede.
-\item
-  \textbf{EXEMPLO}
-\end{itemize}
+* Setar as configurações de rede do roteador, iniciar servidor tftp, setar o nome do .bin em um servidor tftp, setar ip de servidor tftp e baixar o arquivo pela rede.
 
-\begin{verbatim}
+* **EXEMPLO**
+
+```ios
 rommon > IP_SUBNET_MASK=255.255.255.0
 rommon > DEFAULT_GATEWAY=171.68.170.3
 rommon > TFTP_FILE=c2600-is-mz.113.2.0
 rommon > tftpdn1d
-\end{verbatim}
+```
+#VLANS
 
-\section{VLANS}\label{vlans}
+##Criar vlans
 
-\subsection{Criar vlans}\label{criar-vlans}
-
-\begin{verbatim}
+```
 S(config)# vlan <1-1005>
 S(config-vlan)# name avelã
-\end{verbatim}
+```
 
-\subsection{Access Mode}\label{access-mode}
+##Access Mode
 
-\begin{verbatim}
+```
 S(config-if)# switchport mode access
 S(config-if)# switchport access vlan <1-1005>
-\end{verbatim}
+```
 
-\subsection{Trunk Mode}\label{trunk-mode}
+##Trunk Mode
 
-\begin{verbatim}
+```
 S(config-if)# switchport mode trunk
 S(config-if)# switchport trunk allowed vlan <1-1005>
-\end{verbatim}
+```
 
-\begin{verbatim}
-Há também os comandos add, all, onde all adiciona uma nova vlan na lista atual, e all adiciona todas.
-\end{verbatim}
+	Há também os comandos add, all, onde all adiciona uma nova vlan na lista atual, e all adiciona todas.
 
-\subsection{Roteamento de vlans}\label{roteamento-de-vlans}
+##Roteamento de vlans
 
-\subsection{Sem subintefaces}\label{sem-subintefaces}
+##Sem subintefaces
+	
+	* 1 interface pra cada vlan
 
-\begin{verbatim}
-* 1 interface pra cada vlan
+	* Switch -> roteador
+	- Mode *acess* e vlan que irá passar pela inteface 
+
+	* Roteador -> Switch
+	- Seta o ip da interface pra cada vlan
+
+##Com subintefaces
+
+* Uma interface para várias vlans
 
 * Switch -> roteador
-- Mode *acess* e vlan que irá passar pela inteface 
 
-* Roteador -> Switch
-- Seta o ip da interface pra cada vlan
-\end{verbatim}
+	- Tronco e autorizar todas as vlans daquela interface/
 
-\subsection{Com subintefaces}\label{com-subintefaces}
+* Roteador -> switch
 
-\begin{itemize}
-\item
-  Uma interface para várias vlans
-\item
-  Switch -\textgreater{} roteador
+	- Subinterfaces;
 
-  \begin{itemize}
-  \itemsep1pt\parskip0pt\parsep0pt
-  \item
-    Tronco e autorizar todas as vlans daquela interface/
-  \end{itemize}
-\item
-  Roteador -\textgreater{} switch
+	- Só dá um "no shut" para subir a interface
 
-  \begin{itemize}
-  \item
-    Subinterfaces;
-  \item
-    Só dá um ``no shut'' para subir a interface
-  \item
-    Encapsulation dot1q nas subinterfaces
-  \item
-    Gateway default de todas as vlans
-  \end{itemize}
-\end{itemize}
+	- Encapsulation dot1q nas subinterfaces
 
-\subsubsection{Comandos}\label{comandos-1}
+	- Gateway default de todas as vlans
 
-\begin{verbatim}
+### Comandos
+
+```
 router>enable
 router#config terminal
 router(config)#interface fa 0/0
@@ -1222,9 +978,9 @@ router(config-if)#exit
 router(config)#interface fa 0/0.30
 router(config-if)#encapsulation dot1q 30
 router(config-if)#ip address 192.168.1.1 255.255.255.0
-\end{verbatim}
+```
 
-\begin{verbatim}
+```
 switch>enable
 switch#config terminal
 switch(config)#vlan 10
@@ -1242,52 +998,47 @@ switch(config-if)#exit
 switch(config)#interface fa 0/24
 switch(config-if)#switchtport mode trunk
 switch(config-if)#switchport trunk vlan 10,20,30
-\end{verbatim}
+```
 
-\section{IP da vlan para acesso
-remoto}\label{ip-da-vlan-para-acesso-remoto}
+# IP da vlan para acesso remoto
 
-\begin{verbatim}
+```  
 #interface vlan 20 
 #ip address 200.1.1.200 255.255.255.0 
 #no shut 
-\end{verbatim}
+```
+# Protocolos da camada 2
 
-\section{Protocolos da camada 2}\label{protocolos-da-camada-2}
+## Analogia da diferença do PAP e CHAP
 
-\subsection{Analogia da diferença do PAP e
-CHAP}\label{analogia-da-diferenuxe7a-do-pap-e-chap}
+``Pense como a diferença do ssh e do telnet, analogamente``
 
-\texttt{Pense\ como\ a\ diferença\ do\ ssh\ e\ do\ telnet,\ analogamente}
-
-\subsection{PPP com PAP}\label{ppp-com-pap}
+## PPP com PAP
 
 PPP é um protocolo aberto
 
-\begin{verbatim}
-R1 (config)#    username R2
-        password utfpr
+```ios
+R1 (config)#	username R2
+		password utfpr
 R1 (config)# inter se 0/0/0
 R1 (config-if)# encapsulation ppp
 R1 (config-if)# ppp pap sent-username R1 password utfpr
-\end{verbatim}
+```
 
-\subsection{PPP com CHAP}\label{ppp-com-chap}
+## PPP com CHAP
 
-\begin{verbatim}
+```ios
 R2 (config)# interface serial 0/1/0
 R2 (config)# encapsulation ppp
 R2 (config)# ppp authentication chap
 R2 (config)# exit
 R2 (config)# username R2 password utfpr
 R2 (config)# username R3 password utfpr
-\end{verbatim}
+```
 
-\subsection{HDLC}\label{hdlc}
+## HDLC
 
-\begin{verbatim}
+```ios
 R3 (config)# interface serial 0/0/0
 R3 (config-if)# encapsulation hdlc
-\end{verbatim}
-
-\end{document}
+```
