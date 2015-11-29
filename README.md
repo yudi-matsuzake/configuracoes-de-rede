@@ -2,6 +2,9 @@
 
 Configurações rápidas e anotações da disciplina Redes de Computadores da UTFPR. 
 
+[PDF aqui:](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/configuracoes-de-rede.pdf))
+
+
 Agradecimentos ao [Jordy](https://github.com/jordyantunes/) pelas anotações iniciais.
 
 ## Tópicos
