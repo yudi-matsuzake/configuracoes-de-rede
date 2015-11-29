@@ -12,7 +12,6 @@
 	* outbound	(saindo).
 
 ## Criando a Access-List
-================================
 
 ### Padrão
 
@@ -27,7 +26,8 @@ R (config)# access list 1 {permit|deny} host xxx.xxx.xxx.xxx
 ### Extendida
 
 ```ios
-R (config)# access-list 100 {permit|deny} ip  [ {host|protocolo} xxx.xxx.xxx.xxx ] [ xxx.xxx.xxx.xxx wildmask]
+R (config)# access-list 100 {permit|deny} ip [ {host|protocolo} xxx.xxx.xxx.xxx ] \
+		[ xxx.xxx.xxx.xxx wildmask]
 ```
 
 ## Adicionando a ACL em uma interface
