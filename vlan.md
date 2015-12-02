@@ -90,7 +90,7 @@ switch(config-if)#switchport access vlan 10
 switch(config-if)#exit
 switch(config)#interface fa 0/24
 switch(config-if)#switchtport mode trunk
-switch(config-if)#switchport trunk vlan 10,20,30
+switch(config-if)#switchport trunk allowed vlan 10,20,30
 ```
 
 # IP da vlan para acesso remoto
