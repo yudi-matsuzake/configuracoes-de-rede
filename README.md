@@ -2,39 +2,46 @@
 
 Configurações rápidas e anotações da disciplina Redes de Computadores da UTFPR. 
 
-[Download do PDF aqui! :)](https://github.com/yudi-matsuzake/configuracoes-de-rede/raw/master/configuracoes-de-rede.pdf)
-
-
 Agradecimentos ao [Jordy](https://github.com/jordyantunes/) pelas anotações iniciais.
+
+## Formatos
+
+[Download do PDF](https://github.com/yudi-matsuzake/configuracoes-de-rede/raw/master/configuracoes-de-rede.pdf)
+
+Para ver online:
+
+[PDF](configuracoes-de-rede.pdf)
+
+[Markdown](configuracoes-de-rede.md)
 
 ## Tópicos
 
-* [ROTEAMENTO](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/roteamento.md)
+* [ROTEAMENTO](roteamento.md)
 
-* [UTIL](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/util.md)
+* [UTIL](util.md)
 
-* [VLANS](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/vlan.md)
+* [VLANS](vlan.md)
 
-* [SEGURANÇA](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/seguranca.md)
+* [SEGURANÇA](seguranca.md)
 
-* [STP](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/stp.md)
+* [STP](stp.md)
 
-* [IPV6](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/ipv6.md)
+* [IPV6](ipv6.md)
 
-* [WAN](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/wan.md)
+* [WAN](wan.md)
 
-* [QoS](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/QoS.md)
+* [QoS](QoS.md)
 
-* [ETHERCHANNEL](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/etherchannel.md)
+* [ETHERCHANNEL](etherchannel.md)
 
-* [TFTP](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/tftp.md)
+* [TFTP](tftp.md)
 
-* [FRAME RELAY](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/frame_relay.md)
+* [FRAME RELAY](frame_relay.md)
 
-* [DHCP](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/dhcp.md)
+* [DHCP](dhcp.md)
 
-* [NAT](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/nat.md)
+* [NAT](nat.md)
 
-* [TUNELAMENTO](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/tunelamento.md)
+* [TUNELAMENTO](tunelamento.md)
 
-* [ACL](https://github.com/yudi-matsuzake/configuracoes-de-rede/blob/master/acl.md)
+* [ACL](acl.md)
