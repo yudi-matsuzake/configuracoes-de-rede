@@ -45,3 +45,7 @@ Para ver online:
 * [TUNELAMENTO](tunelamento.md)
 
 * [ACL](acl.md)
+
+# Contribua!
+
+Como esse repositório é um material auxiliar da disciplina de Redes de Computadores da UTFPR, ele pode ser renovado por alunos dos próximos anos. Fique à vontade para enviar pull requests de correções ou adicionando novos conteúdos!
