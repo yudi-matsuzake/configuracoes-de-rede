@@ -589,9 +589,9 @@ R(config)# router ospf 1
 R(config-router)# network 192.168.1.0 0.0.0.255 area 0
 R(config-router)# end
 ```
-#Segurança de porta
+# Segurança de porta
 
-##Violações:
+## Violações:
 
 	* Protect
 
@@ -599,20 +599,21 @@ R(config-router)# end
 
 	* Shutdown
 
-##Observações:
+## Observações:
 	
 	* Somente modo acesso
 
 	* Existe estático e dinâmico
 
-##Estático:
+## Estático:
 
 ```
 switchport port-security mac-address AA:AA:AA:AA:00:00:00:01
 switchport maximum 1
 switchport violation shutdown #desliga a interface se houver uma violação
 ```
-##Dinâmico:
+
+## Dinâmico:
 
 	Apenas não específicar o mac
 
@@ -621,7 +622,7 @@ switchport maximum 100
 switchport violation shutdown #desliga a interface se houver uma violação
 ```
 
-#DHCP - snooping
+# DHCP - snooping
 
 ```
 ip dhcp snooping
@@ -905,23 +906,23 @@ rommon > DEFAULT_GATEWAY=171.68.170.3
 rommon > TFTP_FILE=c2600-is-mz.113.2.0
 rommon > tftpdn1d
 ```
-#VLANS
+# VLANS
 
-##Criar vlans
+## Criar vlans
 
 ```
 S(config)# vlan <1-1005>
 S(config-vlan)# name avelã
 ```
 
-##Access Mode
+## Access Mode
 
 ```
 S(config-if)# switchport mode access
 S(config-if)# switchport access vlan <1-1005>
 ```
 
-##Trunk Mode
+## Trunk Mode
 
 ```
 S(config-if)# switchport mode trunk
@@ -930,9 +931,9 @@ S(config-if)# switchport trunk allowed vlan <1-1005>
 
 	Há também os comandos add, all, onde all adiciona uma nova vlan na lista atual, e all adiciona todas.
 
-##Roteamento de vlans
+## Roteamento de vlans
 
-##Sem subintefaces
+## Sem subintefaces
 	
 	* 1 interface pra cada vlan
 
@@ -942,7 +943,7 @@ S(config-if)# switchport trunk allowed vlan <1-1005>
 	* Roteador -> Switch
 	- Seta o ip da interface pra cada vlan
 
-##Com subintefaces
+## Com subintefaces
 
 * Uma interface para várias vlans
 

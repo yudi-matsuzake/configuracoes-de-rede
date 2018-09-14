@@ -1,6 +1,6 @@
-#Segurança de porta
+# Segurança de porta
 
-##Violações:
+## Violações:
 
 	* Protect
 
@@ -8,20 +8,21 @@
 
 	* Shutdown
 
-##Observações:
+## Observações:
 	
 	* Somente modo acesso
 
 	* Existe estático e dinâmico
 
-##Estático:
+## Estático:
 
 ```
 switchport port-security mac-address AA:AA:AA:AA:00:00:00:01
 switchport maximum 1
 switchport violation shutdown #desliga a interface se houver uma violação
 ```
-##Dinâmico:
+
+## Dinâmico:
 
 	Apenas não específicar o mac
 
@@ -30,7 +31,7 @@ switchport maximum 100
 switchport violation shutdown #desliga a interface se houver uma violação
 ```
 
-#DHCP - snooping
+# DHCP - snooping
 
 ```
 ip dhcp snooping

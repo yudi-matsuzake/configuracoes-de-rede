@@ -1,3 +1,6 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
 \documentclass[]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -6,24 +9,30 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
 \else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-    \usepackage{xltxtra,xunicode}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-  \newcommand{\euro}{€}
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage{microtype}
+\usepackage[]{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage{graphicx}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -32,41 +41,40 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
-\hypersetup{breaklinks=true,
-            bookmarks=true,
-            pdfauthor={},
-            pdftitle={},
-            colorlinks=true,
-            citecolor=blue,
-            urlcolor=blue,
-            linkcolor=magenta,
-            pdfborder={0 0 0}}
-\urlstyle{same}  % don't use monospace font for urls
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
 
 \date{}
 
 \begin{document}
 
 {
-\hypersetup{linkcolor=black}
 \setcounter{tocdepth}{3}
 \tableofcontents
 }
-\section{ACL}\label{acl}
+\hypertarget{acl}{%
+\section{ACL}\label{acl}}
 
+\hypertarget{processo-resumido-para-aplicauxe7uxe3o-da-acl}{%
 \subsection{Processo resumido para aplicação da
-ACL}\label{processo-resumido-para-aplicauxe7uxe3o-da-acl}
+ACL}\label{processo-resumido-para-aplicauxe7uxe3o-da-acl}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -78,7 +86,7 @@ ACL}\label{processo-resumido-para-aplicauxe7uxe3o-da-acl}
   Informar a direção:
 
   \begin{itemize}
-  \itemsep1pt\parskip0pt\parsep0pt
+  \tightlist
   \item
     inbound (entrando);
   \item
@@ -86,9 +94,11 @@ ACL}\label{processo-resumido-para-aplicauxe7uxe3o-da-acl}
   \end{itemize}
 \end{enumerate}
 
-\subsection{Criando a Access-List}\label{criando-a-access-list}
+\hypertarget{criando-a-access-list}{%
+\subsection{Criando a Access-List}\label{criando-a-access-list}}
 
-\subsubsection{Padrão}\label{padruxe3o}
+\hypertarget{padruxe3o}{%
+\subsubsection{Padrão}\label{padruxe3o}}
 
 \begin{itemize}
 \item
@@ -102,33 +112,34 @@ ACL}\label{processo-resumido-para-aplicauxe7uxe3o-da-acl}
 R (config)# access list 1 {permit|deny} host xxx.xxx.xxx.xxx
 \end{verbatim}
 
-\subsubsection{Extendida}\label{extendida}
+\hypertarget{extendida}{%
+\subsubsection{Extendida}\label{extendida}}
 
 \begin{verbatim}
 R (config)# access-list 100 {permit|deny} ip [ {host|protocolo} xxx.xxx.xxx.xxx ] \
         [ xxx.xxx.xxx.xxx wildmask]
 \end{verbatim}
 
+\hypertarget{adicionando-a-acl-em-uma-interface}{%
 \subsection{Adicionando a ACL em uma
-interface}\label{adicionando-a-acl-em-uma-interface}
+interface}\label{adicionando-a-acl-em-uma-interface}}
 
 \begin{verbatim}
 R> interface serial 0/0/0
 R (config)# ip access-group 1 {in|out}
 \end{verbatim}
 
-\section{DHCP}\label{dhcp}
-
-\section{Etherchannels}\label{etherchannels}
+\#DHCP \# Etherchannels
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   O administrador deve indicar uma interface para o etherchanel usando o
   comando channel-group;
 \end{itemize}
 
-\subsection{PAgP vs LACP}\label{pagp-vs-lacp}
+\hypertarget{pagp-vs-lacp}{%
+\subsection{PAgP vs LACP}\label{pagp-vs-lacp}}
 
 \begin{itemize}
 \item
@@ -137,13 +148,14 @@ R (config)# ip access-group 1 {in|out}
   LACP IEEE 802.3ad standard
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{imagens/etherchannel/PAgPvsLAcP.png}
 \caption{PAgP vs LACP}
 \end{figure}
 
-\subsection{Comandos}\label{comandos}
+\hypertarget{comandos}{%
+\subsection{Comandos}\label{comandos}}
 
 \begin{itemize}
 \item
@@ -158,11 +170,13 @@ R (config)# ip access-group 1 {in|out}
 \includegraphics{imagens/etherchannel/etherchannel2.png}
 \includegraphics{imagens/etherchannel/etherchannel3.png}
 
-\subsection{Configuração}\label{configurauxe7uxe3o}
+\hypertarget{configurauxe7uxe3o}{%
+\subsection{Configuração}\label{configurauxe7uxe3o}}
 
-\subsubsection{Ações}\label{auxe7uxf5es}
+\hypertarget{auxe7uxf5es}{%
+\subsubsection{Ações}\label{auxe7uxf5es}}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{imagens/etherchannel/acoes.png}
 \caption{Ações}
@@ -178,7 +192,7 @@ Switch(config-if-range)# channel-group number mode {auto|disirable|on}
 
 \textbf{Modos}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{imagens/etherchannel/modos.png}
 \caption{Modos}
@@ -186,7 +200,7 @@ Switch(config-if-range)# channel-group number mode {auto|disirable|on}
 
 \textbf{Estático}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{imagens/etherchannel/estatico.png}
 \caption{Estático}
@@ -194,7 +208,7 @@ Switch(config-if-range)# channel-group number mode {auto|disirable|on}
 
 \textbf{PAgP}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{imagens/etherchannel/PAgP.png}
 \caption{PAgP}
@@ -204,36 +218,40 @@ Switch(config-if-range)# channel-group number mode {auto|disirable|on}
 
 \includegraphics{imagens/etherchannel/LACP.png} \# PVC frame relay
 
+\hypertarget{configurauxe7uxe3o-buxe1sica-de-um-pvc-frame-relay-pvc-em-um-roteador-com-interface-serial.}{%
 \subsection{Configuração básica de um PVC Frame Relay PVC em um roteador
 com interface
-serial.}\label{configurauxe7uxe3o-buxe1sica-de-um-pvc-frame-relay-pvc-em-um-roteador-com-interface-serial.}
+serial.}\label{configurauxe7uxe3o-buxe1sica-de-um-pvc-frame-relay-pvc-em-um-roteador-com-interface-serial.}}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{imagens/frame-relay/pvc-basico-frame-relay.png}
 \caption{Configuração Básica}
 \end{figure}
 
+\hypertarget{configurauxe7uxe3o-de-um-mapa-estuxe1tico-frame-relay}{%
 \subsection{Configuração de um mapa estático Frame
-Relay}\label{configurauxe7uxe3o-de-um-mapa-estuxe1tico-frame-relay}
+Relay}\label{configurauxe7uxe3o-de-um-mapa-estuxe1tico-frame-relay}}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{imagens/frame-relay/pvc-basico-frame-relay0.png}
 \caption{Configuração Básica}
 \end{figure}
 
+\hypertarget{configurauxe7uxe3o-de-uma-topologia-de-rede-frame-relay-hub-and-spoke}{%
 \section{Configuração de uma topologia de rede Frame Relay Hub and
-Spoke}\label{configurauxe7uxe3o-de-uma-topologia-de-rede-frame-relay-hub-and-spoke}
+Spoke}\label{configurauxe7uxe3o-de-uma-topologia-de-rede-frame-relay-hub-and-spoke}}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{imagens/frame-relay/frame-raley-hub-and-spoke.png}
 \caption{Configuração Hub and Spoke}
 \end{figure}
 
+\hypertarget{configurauxe7uxe3o-do-roteador-da-matriz}{%
 \subsection{Configuração do Roteador da
-Matriz}\label{configurauxe7uxe3o-do-roteador-da-matriz}
+Matriz}\label{configurauxe7uxe3o-do-roteador-da-matriz}}
 
 \begin{verbatim}
 Router#config terminal
@@ -260,8 +278,9 @@ Matriz(config-if)#exit
 Matriz(config)#
 \end{verbatim}
 
+\hypertarget{configurauxe7uxe3o-do-roteador-da-filial-1}{%
 \subsection{Configuração do roteador da Filial
-1}\label{configurauxe7uxe3o-do-roteador-da-filial-1}
+1}\label{configurauxe7uxe3o-do-roteador-da-filial-1}}
 
 \begin{verbatim}
 Router>enable
@@ -285,8 +304,9 @@ Filial1(config-if)#end
 Filial1#
 \end{verbatim}
 
+\hypertarget{configurauxe7uxe3o-do-roteador-da-filial-2}{%
 \subsection{Configuração do roteador da Filial
-2}\label{configurauxe7uxe3o-do-roteador-da-filial-2}
+2}\label{configurauxe7uxe3o-do-roteador-da-filial-2}}
 
 \begin{verbatim}
 Router>enable
@@ -312,8 +332,9 @@ Filial2(config-if)#end
 Filial2#
 \end{verbatim}
 
+\hypertarget{configurauxe7uxe3o-do-switch-frame-relay-1}{%
 \subsection{Configuração do Switch Frame Relay
-1}\label{configurauxe7uxe3o-do-switch-frame-relay-1}
+1}\label{configurauxe7uxe3o-do-switch-frame-relay-1}}
 
 \begin{verbatim}
 SFR1#config terminal
@@ -347,8 +368,9 @@ SFR1(config-if)#end
 SFR1#
 \end{verbatim}
 
+\hypertarget{configurauxe7uxe3o-do-switch-frame-relay-2}{%
 \subsection{Configuração do Switch Frame Relay
-2}\label{configurauxe7uxe3o-do-switch-frame-relay-2}
+2}\label{configurauxe7uxe3o-do-switch-frame-relay-2}}
 
 \begin{verbatim}
 SFR2#config terminal
@@ -374,8 +396,9 @@ SFR2(config-if)#end
 SFR2#wr
 \end{verbatim}
 
+\hypertarget{configurauxe7uxe3o-do-switch-frame-relay-3}{%
 \subsection{Configuração do Switch Frame Relay
-3}\label{configurauxe7uxe3o-do-switch-frame-relay-3}
+3}\label{configurauxe7uxe3o-do-switch-frame-relay-3}}
 
 \begin{verbatim}
 SFR3#configure terminal
@@ -411,8 +434,9 @@ SFR3(config-if)#end
 SFR3#
 \end{verbatim}
 
+\hypertarget{configurauxe7uxe3o-do-protocolo-de-roteamento-ospf}{%
 \subsection{Configuração do protocolo de roteamento
-OSPF}\label{configurauxe7uxe3o-do-protocolo-de-roteamento-ospf}
+OSPF}\label{configurauxe7uxe3o-do-protocolo-de-roteamento-ospf}}
 
 \begin{verbatim}
 Matriz
@@ -424,7 +448,8 @@ Matriz(config-router)#network 200.1.1.4 0.0.0.3 area 0
 Matriz(config-router)#end
 \end{verbatim}
 
-\subsection{Filial 1}\label{filial-1}
+\hypertarget{filial-1}{%
+\subsection{Filial 1}\label{filial-1}}
 
 \begin{verbatim}
 Filial1>enable
@@ -437,7 +462,8 @@ Filial1(config-router)#end
 Filial1#
 \end{verbatim}
 
-\subsection{Filial 2}\label{filial-2}
+\hypertarget{filial-2}{%
+\subsection{Filial 2}\label{filial-2}}
 
 \begin{verbatim}
 Filial2>enable
@@ -450,8 +476,9 @@ Filial2(config-router)#end
 Filial2#
 \end{verbatim}
 
+\hypertarget{verificando-as-configurauxe7uxf5es}{%
 \subsection{Verificando as
-configurações:}\label{verificando-as-configurauxe7uxf5es}
+configurações:}\label{verificando-as-configurauxe7uxf5es}}
 
 \begin{verbatim}
 Matriz#show frame-relay map
@@ -516,24 +543,42 @@ DLCI = 103, DLCI USAGE = LOCAL, PVC STATUS = ACTIVE, INTERFACE = Serial0/0.103
 Matriz#
 \end{verbatim}
 
-\section{Roteador}\label{roteador}
+\hypertarget{roteador}{%
+\section{Roteador}\label{roteador}}
 
-\texttt{ios\ R\textgreater{}\ enable\ R(config)\#\ config\ terminal\ R(config)\#\ ipv6\ unicast-routing\ \ R(config)\#\ interface\ fa\ 0/1\ R(config-if)\#\ ipv6\ enable\ R(config-if))\#\ ipv6\ address\ 2001:dbb1:1:1::1/64\ R(config-if)\#\ no\ shut\ R(config-if)\#\ exit}
+\begin{verbatim}
+R> enable
+R(config)# config terminal
+R(config)# ipv6 unicast-routing 
+R(config)# interface fa 0/1
+R(config-if)# ipv6 enable
+R(config-if))# ipv6 address 2001:dbb1:1:1::1/64
+R(config-if)# no shut
+R(config-if)# exit
+\end{verbatim}
 
-\subsection{ativar o rip}\label{ativar-o-rip}
+\hypertarget{ativar-o-rip}{%
+\subsection{ativar o rip}\label{ativar-o-rip}}
 
-\subsubsection{Na interface}\label{na-interface}
+\hypertarget{na-interface}{%
+\subsubsection{Na interface}\label{na-interface}}
 
 \begin{verbatim}
 R(config-if)# ipv6 rip nrede enable
 \end{verbatim}
 
+\hypertarget{na-configurauxe7uxe3o-global}{%
 \subsubsection{Na configuração
-global}\label{na-configurauxe7uxe3o-global}
+global}\label{na-configurauxe7uxe3o-global}}
 
 Onde \emph{nrede} é uma palavra chave
 
-\texttt{ios\ R\ (config)\ \#\ ipv6\ router\ rip\ nrede} \# NAT
+\begin{verbatim}
+R (config) # ipv6 router rip nrede
+\end{verbatim}
+
+\hypertarget{nat}{%
+\section{NAT}\label{nat}}
 
 \begin{verbatim}
 Router(config)# int fa 0/1
@@ -549,21 +594,24 @@ Router(config)# interface fa 0/1
 Router(config)# overload
 \end{verbatim}
 
-\section{QoS}\label{qos}
+\hypertarget{qos}{%
+\section{QoS}\label{qos}}
 
+\hypertarget{configurauxe7uxe3o-de-uma-rede-voip}{%
 \subsection{Configuração de uma rede
-VoIP}\label{configurauxe7uxe3o-de-uma-rede-voip}
+VoIP}\label{configurauxe7uxe3o-de-uma-rede-voip}}
 
 Vamos configurar uma rede com a seguinte topologia:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{imagens/voip/voip-configuracao.png}
 \caption{Topologia}
 \end{figure}
 
+\hypertarget{configurauxe7uxe3o-do-switch}{%
 \subsubsection{Configuração do
-Switch}\label{configurauxe7uxe3o-do-switch}
+Switch}\label{configurauxe7uxe3o-do-switch}}
 
 \begin{verbatim}
 Switch(config)#interface range fa0/1 – 5
@@ -571,8 +619,9 @@ Switch(config-if-range)#switchport mode access
 Switch(config-if-range)#switchport voice vlan 1
 \end{verbatim}
 
+\hypertarget{configurauxe7uxe3o-do-roteador-2811-com-o-cme}{%
 \subsubsection{Configuração do roteador 2811 com o
-CME:}\label{configurauxe7uxe3o-do-roteador-2811-com-o-cme}
+CME:}\label{configurauxe7uxe3o-do-roteador-2811-com-o-cme}}
 
 \begin{verbatim}
 Router(config)#int fa 0/0
@@ -600,8 +649,9 @@ Router(config)#ephone-dn 3
 Router(config-ephone-dn)#number 11111
 \end{verbatim}
 
+\hypertarget{configurauxe7uxe3o-da-qualidade-de-serviuxe7o-qos-no-switch-2960}{%
 \subsubsection{Configuração da Qualidade de Serviço (QoS) no Switch
-2960}\label{configurauxe7uxe3o-da-qualidade-de-serviuxe7o-qos-no-switch-2960}
+2960}\label{configurauxe7uxe3o-da-qualidade-de-serviuxe7o-qos-no-switch-2960}}
 
 \begin{verbatim}
 Switch#configure terminal
@@ -620,17 +670,20 @@ Switch(config)#end
 Switch#wr
 \end{verbatim}
 
-\section{Policing}\label{policing}
+\hypertarget{policing}{%
+\section{Policing}\label{policing}}
 
-\subsection{Topologia}\label{topologia}
+\hypertarget{topologia}{%
+\subsection{Topologia}\label{topologia}}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{imagens/qos/policing.png}
 \caption{Topologia}
 \end{figure}
 
-\subsection{Básico}\label{buxe1sico}
+\hypertarget{buxe1sico}{%
+\subsection{Básico}\label{buxe1sico}}
 
 \begin{verbatim}
 Rot1(config)#interface fa 0/1
@@ -657,7 +710,8 @@ Rot1(config)#access-list 1 permit 192.168.0.0 0.0.255.255
 Rot1(config)#ip nat inside source list 1 interface fa 0/1 overload
 \end{verbatim}
 
-\subsection{Configuração Policing}\label{configurauxe7uxe3o-policing}
+\hypertarget{configurauxe7uxe3o-policing}{%
+\subsection{Configuração Policing}\label{configurauxe7uxe3o-policing}}
 
 \begin{verbatim}
 Rot1(config)#ip access-list extended HostA
@@ -676,10 +730,12 @@ Rot1(config)#interface fa 0/0.10
 Rot1(config-if)#service-policy output QoS1
 \end{verbatim}
 
-\subsubsection{Configuração Shapping}\label{configurauxe7uxe3o-shapping}
+\hypertarget{configurauxe7uxe3o-shapping}{%
+\subsubsection{Configuração
+Shapping}\label{configurauxe7uxe3o-shapping}}
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   Ao invés de police rate \ldots{} Na linha
 \end{itemize}
@@ -689,7 +745,7 @@ Rot1(config-pmap-c)#police rate 64000 bps
 \end{verbatim}
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   Colocar:
 \end{itemize}
@@ -698,7 +754,8 @@ Rot1(config-pmap-c)#police rate 64000 bps
 Rot1(config-pmap-c)#shape average 128000
 \end{verbatim}
 
-\subsection{Continuação\ldots{}}\label{continuauxe7uxe3o}
+\hypertarget{continuauxe7uxe3o}{%
+\subsection{Continuação\ldots{}}\label{continuauxe7uxe3o}}
 
 \begin{verbatim}
 Rot1(config)#ip access-list extended HostB
@@ -717,7 +774,8 @@ Rot1(config)#interface fa 0/0.20
 Rot1(config-if)#service-policy output QoS2
 \end{verbatim}
 
-\section{EIGRP 1}\label{eigrp-1}
+\hypertarget{eigrp-1}{%
+\section{EIGRP 1}\label{eigrp-1}}
 
 \begin{verbatim}
 R(config)#router eigrp 1
@@ -727,7 +785,8 @@ R(config-router)#end
 R#wr
 \end{verbatim}
 
-\section{OSPF}\label{ospf}
+\hypertarget{ospf}{%
+\section{OSPF}\label{ospf}}
 
 \emph{Atenção: a máscara é invertida, i.e., wildmask}
 
@@ -739,9 +798,11 @@ R(config-router)# network 192.168.1.0 0.0.0.255 area 0
 R(config-router)# end
 \end{verbatim}
 
-\section{Segurança de porta}\label{seguranuxe7a-de-porta}
+\hypertarget{seguranuxe7a-de-porta}{%
+\section{Segurança de porta}\label{seguranuxe7a-de-porta}}
 
-\subsection{Violações:}\label{violauxe7uxf5es}
+\hypertarget{violauxe7uxf5es}{%
+\subsection{Violações:}\label{violauxe7uxf5es}}
 
 \begin{verbatim}
 * Protect
@@ -751,7 +812,8 @@ R(config-router)# end
 * Shutdown
 \end{verbatim}
 
-\subsection{Observações:}\label{observauxe7uxf5es}
+\hypertarget{observauxe7uxf5es}{%
+\subsection{Observações:}\label{observauxe7uxf5es}}
 
 \begin{verbatim}
 * Somente modo acesso
@@ -759,7 +821,8 @@ R(config-router)# end
 * Existe estático e dinâmico
 \end{verbatim}
 
-\subsection{Estático:}\label{estuxe1tico}
+\hypertarget{estuxe1tico}{%
+\subsection{Estático:}\label{estuxe1tico}}
 
 \begin{verbatim}
 switchport port-security mac-address AA:AA:AA:AA:00:00:00:01
@@ -767,7 +830,8 @@ switchport maximum 1
 switchport violation shutdown #desliga a interface se houver uma violação
 \end{verbatim}
 
-\subsection{Dinâmico:}\label{dinuxe2mico}
+\hypertarget{dinuxe2mico}{%
+\subsection{Dinâmico:}\label{dinuxe2mico}}
 
 \begin{verbatim}
 Apenas não específicar o mac
@@ -778,7 +842,8 @@ switchport maximum 100
 switchport violation shutdown #desliga a interface se houver uma violação
 \end{verbatim}
 
-\section{DHCP - snooping}\label{dhcp---snooping}
+\hypertarget{dhcp---snooping}{%
+\section{DHCP - snooping}\label{dhcp---snooping}}
 
 \begin{verbatim}
 ip dhcp snooping
@@ -791,7 +856,8 @@ end
 show ip dhcp snooping
 \end{verbatim}
 
-\section{SSH}\label{ssh}
+\hypertarget{ssh}{%
+\section{SSH}\label{ssh}}
 
 \begin{verbatim}
 S# vlan 30 
@@ -812,10 +878,12 @@ S#line vty 0 4
 
 (para acesso remoto das vlans acesse vlan.md)
 
-\section{STP}\label{stp}
+\hypertarget{stp}{%
+\section{STP}\label{stp}}
 
+\hypertarget{no-switch-que-seruxe1-o-root}{%
 \subsection{No switch que será o
-root}\label{no-switch-que-seruxe1-o-root}
+root}\label{no-switch-que-seruxe1-o-root}}
 
 \begin{verbatim}
 Switch>enable
@@ -825,8 +893,9 @@ Switch(config)#end
 Switch#
 \end{verbatim}
 
+\hypertarget{nos-switches-que-seruxe3o-secunduxe1rios}{%
 \subsection{Nos switches que serão
-secundários}\label{nos-switches-que-seruxe3o-secunduxe1rios}
+secundários}\label{nos-switches-que-seruxe3o-secunduxe1rios}}
 
 \begin{verbatim}
 Switch>enable
@@ -837,9 +906,10 @@ Switch#
 Switch#
 \end{verbatim}
 
+\hypertarget{para-configurar-o-switch-na-topologia-desativando-o-protocolo-spanning-tree-stp.-tem-somente-a-vlan-1-padruxe3o-configurada.}{%
 \subsection{Para configurar o switch na topologia desativando o
 protocolo Spanning Tree (STP). Tem somente a Vlan 1 (padrão)
-configurada.}\label{para-configurar-o-switch-na-topologia-desativando-o-protocolo-spanning-tree-stp.-tem-somente-a-vlan-1-padruxe3o-configurada.}
+configurada.}\label{para-configurar-o-switch-na-topologia-desativando-o-protocolo-spanning-tree-stp.-tem-somente-a-vlan-1-padruxe3o-configurada.}}
 
 \begin{verbatim}
 Switch>enable
@@ -854,10 +924,11 @@ Building configuration...
 Switch#
 \end{verbatim}
 
-\section{TFPT}\label{tfpt}
+\hypertarget{tfpt}{%
+\section{TFPT}\label{tfpt}}
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   Arquivo de configuração do TFTP:
 \end{itemize}
@@ -865,7 +936,7 @@ Switch#
 \texttt{/etc/default/tftpd-hpa}
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   Pasta padrão do servidor tftp:
 \end{itemize}
@@ -873,7 +944,7 @@ Switch#
 \texttt{/home/tftp/}
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   Iniciar, reinicializar ou desligar o deamon do TFTP:
 \end{itemize}
@@ -883,7 +954,7 @@ Switch#
 \end{verbatim}
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   \emph{Exemplo}: copiar o arquivo running-config do sistema para o
   servidor
@@ -893,9 +964,11 @@ Switch#
 copy system:running-config tftp
 \end{verbatim}
 
-\section{TUNELAMENTO}\label{tunelamento}
+\hypertarget{tunelamento}{%
+\section{TUNELAMENTO}\label{tunelamento}}
 
-\subsection{Túnel 6in4}\label{tuxfanel-6in4}
+\hypertarget{tuxfanel-6in4}{%
+\subsection{Túnel 6in4}\label{tuxfanel-6in4}}
 
 \begin{verbatim}
 router> enable
@@ -908,7 +981,8 @@ router(config-if)# tunnel mode ipv6ip
 router(config-if)# ipv6 route 2001:db8:cafe:2::/64 fd00:cafe::1
 \end{verbatim}
 
-\section{Útil}\label{uxfatil}
+\hypertarget{uxfatil}{%
+\section{Útil}\label{uxfatil}}
 
 Comandos que podem ser úteis no gerenciamento e configuração das redes
 
@@ -918,8 +992,9 @@ Comandos que podem ser úteis no gerenciamento e configuração das redes
 # interface range fa 0/0-10
 \end{verbatim}
 
+\hypertarget{duxe1-pra-separar-por-vuxedrgulas}{%
 \subsection{Dá pra separar por
-vírgulas}\label{duxe1-pra-separar-por-vuxedrgulas}
+vírgulas}\label{duxe1-pra-separar-por-vuxedrgulas}}
 
 \begin{verbatim}
 # interface range fa 0/1, fa 0/3, fa0/5
@@ -983,8 +1058,9 @@ undebug ppp
 undebug all
 \end{verbatim}
 
+\hypertarget{gravauxe7uxf5esexclusuxf5es-de-configurauxe7uxe3o}{%
 \subsection{Gravações/exclusões de
-configuração}\label{gravauxe7uxf5esexclusuxf5es-de-configurauxe7uxe3o}
+configuração}\label{gravauxe7uxf5esexclusuxf5es-de-configurauxe7uxe3o}}
 
 \texttt{Ram} armazena running-config
 
@@ -992,7 +1068,9 @@ configuração}\label{gravauxe7uxf5esexclusuxf5es-de-configurauxe7uxe3o}
 
 \texttt{Flash} armazena SO e vlan.dat (conteúdo das vlans)
 
-\subsubsection{Gravar Ram -\textgreater{} vRam}\label{gravar-ram---vram}
+\hypertarget{gravar-ram---vram}{%
+\subsubsection{Gravar Ram -\textgreater{}
+vRam}\label{gravar-ram---vram}}
 
 \begin{verbatim}
 #copy running-config startup-config 
@@ -1004,7 +1082,8 @@ OR
 #wr 
 \end{verbatim}
 
-\subsubsection{Apagar tudo:}\label{apagar-tudo}
+\hypertarget{apagar-tudo}{%
+\subsubsection{Apagar tudo:}\label{apagar-tudo}}
 
 \begin{verbatim}
 #erase startup-config 
@@ -1012,12 +1091,15 @@ OR
 #reload 
 \end{verbatim}
 
+\hypertarget{recuperauxe7uxe3o-de-dispositivos}{%
 \section{Recuperação de
-dispositivos}\label{recuperauxe7uxe3o-de-dispositivos}
+dispositivos}\label{recuperauxe7uxe3o-de-dispositivos}}
 
-\subsection{Recuperar senhas}\label{recuperar-senhas}
+\hypertarget{recuperar-senhas}{%
+\subsection{Recuperar senhas}\label{recuperar-senhas}}
 
-\subsubsection{No roteador}\label{no-roteador}
+\hypertarget{no-roteador}{%
+\subsubsection{No roteador}\label{no-roteador}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1038,7 +1120,7 @@ rommon >
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{3}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   Alterar o registro de configuração para o valor 0x2142. Com isto, na
   reinicialização do roteador o equipamento não vai carregar a
@@ -1054,7 +1136,7 @@ rommon> reset
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{4}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   Apenas digitar \emph{enable}, não precisa digitar a senha
 \end{enumerate}
@@ -1065,13 +1147,14 @@ router# copy startup-config running-config
 \end{verbatim}
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   A partir deste ponto toda a configuração da NVRAM estará na RAM e
   poderá ser alterada, inclusive a senha.
 \end{itemize}
 
-\subsubsection{No switch}\label{no-switch}
+\hypertarget{no-switch}{%
+\subsubsection{No switch}\label{no-switch}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1090,7 +1173,7 @@ boot
 \end{verbatim}
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   Fazer os comandos nessa ordem, flash\_init, load\_helper, então
   renomear o arquivo config.text e, então, executar o comando boot:
@@ -1117,7 +1200,8 @@ copy flash:config.old flash:config.text
 copy flash:config.text system:running-config
 \end{verbatim}
 
-\subsection{IOS apagado}\label{ios-apagado}
+\hypertarget{ios-apagado}{%
+\subsection{IOS apagado}\label{ios-apagado}}
 
 \begin{itemize}
 \item
@@ -1135,23 +1219,27 @@ rommon > TFTP_FILE=c2600-is-mz.113.2.0
 rommon > tftpdn1d
 \end{verbatim}
 
-\section{VLANS}\label{vlans}
+\hypertarget{vlans}{%
+\section{VLANS}\label{vlans}}
 
-\subsection{Criar vlans}\label{criar-vlans}
+\hypertarget{criar-vlans}{%
+\subsection{Criar vlans}\label{criar-vlans}}
 
 \begin{verbatim}
 S(config)# vlan <1-1005>
 S(config-vlan)# name avelã
 \end{verbatim}
 
-\subsection{Access Mode}\label{access-mode}
+\hypertarget{access-mode}{%
+\subsection{Access Mode}\label{access-mode}}
 
 \begin{verbatim}
 S(config-if)# switchport mode access
 S(config-if)# switchport access vlan <1-1005>
 \end{verbatim}
 
-\subsection{Trunk Mode}\label{trunk-mode}
+\hypertarget{trunk-mode}{%
+\subsection{Trunk Mode}\label{trunk-mode}}
 
 \begin{verbatim}
 S(config-if)# switchport mode trunk
@@ -1162,9 +1250,11 @@ S(config-if)# switchport trunk allowed vlan <1-1005>
 Há também os comandos add, all, onde all adiciona uma nova vlan na lista atual, e all adiciona todas.
 \end{verbatim}
 
-\subsection{Roteamento de vlans}\label{roteamento-de-vlans}
+\hypertarget{roteamento-de-vlans}{%
+\subsection{Roteamento de vlans}\label{roteamento-de-vlans}}
 
-\subsection{Sem subintefaces}\label{sem-subintefaces}
+\hypertarget{sem-subintefaces}{%
+\subsection{Sem subintefaces}\label{sem-subintefaces}}
 
 \begin{verbatim}
 * 1 interface pra cada vlan
@@ -1176,7 +1266,8 @@ Há também os comandos add, all, onde all adiciona uma nova vlan na lista atual
 - Seta o ip da interface pra cada vlan
 \end{verbatim}
 
-\subsection{Com subintefaces}\label{com-subintefaces}
+\hypertarget{com-subintefaces}{%
+\subsection{Com subintefaces}\label{com-subintefaces}}
 
 \begin{itemize}
 \item
@@ -1185,7 +1276,7 @@ Há também os comandos add, all, onde all adiciona uma nova vlan na lista atual
   Switch -\textgreater{} roteador
 
   \begin{itemize}
-  \itemsep1pt\parskip0pt\parsep0pt
+  \tightlist
   \item
     Tronco e autorizar todas as vlans daquela interface/
   \end{itemize}
@@ -1204,7 +1295,8 @@ Há também os comandos add, all, onde all adiciona uma nova vlan na lista atual
   \end{itemize}
 \end{itemize}
 
-\subsubsection{Comandos}\label{comandos-1}
+\hypertarget{comandos-1}{%
+\subsubsection{Comandos}\label{comandos-1}}
 
 \begin{verbatim}
 router>enable
@@ -1244,8 +1336,9 @@ switch(config-if)#switchtport mode trunk
 switch(config-if)#switchport trunk vlan 10,20,30
 \end{verbatim}
 
+\hypertarget{ip-da-vlan-para-acesso-remoto}{%
 \section{IP da vlan para acesso
-remoto}\label{ip-da-vlan-para-acesso-remoto}
+remoto}\label{ip-da-vlan-para-acesso-remoto}}
 
 \begin{verbatim}
 #interface vlan 20 
@@ -1253,14 +1346,17 @@ remoto}\label{ip-da-vlan-para-acesso-remoto}
 #no shut 
 \end{verbatim}
 
-\section{Protocolos da camada 2}\label{protocolos-da-camada-2}
+\hypertarget{protocolos-da-camada-2}{%
+\section{Protocolos da camada 2}\label{protocolos-da-camada-2}}
 
+\hypertarget{analogia-da-diferenuxe7a-do-pap-e-chap}{%
 \subsection{Analogia da diferença do PAP e
-CHAP}\label{analogia-da-diferenuxe7a-do-pap-e-chap}
+CHAP}\label{analogia-da-diferenuxe7a-do-pap-e-chap}}
 
 \texttt{Pense\ como\ a\ diferença\ do\ ssh\ e\ do\ telnet,\ analogamente}
 
-\subsection{PPP com PAP}\label{ppp-com-pap}
+\hypertarget{ppp-com-pap}{%
+\subsection{PPP com PAP}\label{ppp-com-pap}}
 
 PPP é um protocolo aberto
 
@@ -1272,7 +1368,8 @@ R1 (config-if)# encapsulation ppp
 R1 (config-if)# ppp pap sent-username R1 password utfpr
 \end{verbatim}
 
-\subsection{PPP com CHAP}\label{ppp-com-chap}
+\hypertarget{ppp-com-chap}{%
+\subsection{PPP com CHAP}\label{ppp-com-chap}}
 
 \begin{verbatim}
 R2 (config)# interface serial 0/1/0
@@ -1283,7 +1380,8 @@ R2 (config)# username R2 password utfpr
 R2 (config)# username R3 password utfpr
 \end{verbatim}
 
-\subsection{HDLC}\label{hdlc}
+\hypertarget{hdlc}{%
+\subsection{HDLC}\label{hdlc}}
 
 \begin{verbatim}
 R3 (config)# interface serial 0/0/0
